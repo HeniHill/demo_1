@@ -37,4 +37,12 @@ export class UserService {
 
         return updatedUser;
     }
+
+    async deleteUserById(id:string){
+        const deletedUser= await this.userModel.findByIdAndDelete(id);
+
+        if(!deletedUser) throw new HttpException("User Not Found",404);
+
+        return deletedUser;
+    }
 }
