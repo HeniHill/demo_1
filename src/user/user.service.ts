@@ -3,6 +3,7 @@ import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDto } from 'src/dto/CreateUser.dto';
+import { UpdateUserDto } from 'src/dto/UpdateUser.dto';
 import { User } from 'src/schemas/user.schema';
 
 @Injectable()
@@ -27,5 +28,9 @@ export class UserService {
 
     async getUserById(id:string):Promise<User>{
         return this.userModel.findById(id).exec();
+    }
+
+    updateUserById(id:string,user:UpdateUserDto){
+        return this.userModel.findByIdAndUpdate(id,user,{new:true});
     }
 }

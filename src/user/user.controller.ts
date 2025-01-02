@@ -1,8 +1,9 @@
-import { Body, Controller,Get, HttpException, Param, Post } from '@nestjs/common';
+import { Body, Controller,Get, HttpException, Param, Patch, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { get } from 'http';
 import { CreateUserDto } from 'src/dto/CreateUser.dto';
 import { ValidateObjectIdPipe } from 'src/exception/object.validation';
+import { UpdateUserDto } from 'src/dto/UpdateUser.dto';
 
 @Controller('user')
 export class UserController {
@@ -28,5 +29,10 @@ export class UserController {
       }
 
       return user;
+  }
+
+  @Patch(':id')
+  updateUserById(@Param('id',ValidateObjectIdPipe) id:string,@Body() user: UpdateUserDto){
+    return this.userService.updateUserById(id,user);
   }
 }
