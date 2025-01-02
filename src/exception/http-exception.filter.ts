@@ -21,6 +21,15 @@ import {
         message = 'Duplicate value for unique field detected';
         status = HttpStatus.CONFLICT; // HTTP 409 Conflict
       }
+      if(exception.code === 2){
+        message = 'Bad Value Provided';
+        status = HttpStatus.BAD_REQUEST;
+      }
+
+      if(exception.code === 50){
+        message="Timeout Error";
+        status=HttpStatus.REQUEST_TIMEOUT;
+      }
   
       response.status(status).json({
         statusCode: status,
