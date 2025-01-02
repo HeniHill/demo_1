@@ -1,5 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
+import { User } from './schemas/user.schema';
+import { CreateUserDto } from './dto/CreateUser.dto';
 
 @Controller()
 export class AppController {
@@ -7,6 +9,11 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    return this.appService.getHello();
+    return this.appService.getMessage();
+  }
+  
+  @Post()
+  createUser(user:CreateUserDto){
+
   }
 }
