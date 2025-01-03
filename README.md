@@ -19,7 +19,9 @@ I preferred the first approach.
 
 ## Exception Handling.
 
-Usually when there is constraint violation in the model, the server fires an Internal Server Error (500), but to make the response fore clear and informative for the end users, custom exception handling is implemented using
+Usually when there is constraint violation in the model, the server fires an Internal Server Error (500), but to make the response fore clear and informative for the end users, custom exception handling is implemented using nestjs ExceptionFilter class.
+
+**app.useGlobalFilters(new CustomExceptionFilter());**
 
 ## Caching
 
