@@ -19,7 +19,8 @@ import { CacheModule } from '@nestjs/cache-manager';
                     ttl:60,  // time to live
                     max:100, // No of max entries
                     isGlobal:true // apply the cache to all the requests
-                })
+                }
+              )
   ],
   controllers: [AppController],
   providers: [AppService],

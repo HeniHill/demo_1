@@ -39,6 +39,10 @@ async createIncident({userId, ...incident}:CreateIncidentDto): Promise<Incident>
 
 }
 
+async getIncidents(): Promise<Incident[]>{
+    return await this.incidentModel.find().exec();
+}
+
  sendIncident(data: Incident){
  
   this.client.emit('new_incident',new CreateIncidentEvent(data));
