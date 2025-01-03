@@ -1,9 +1,9 @@
 import { Body, Controller,Delete,Get, HttpException, Param, Patch, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { get } from 'http';
-import { CreateUserDto } from 'src/dto/CreateUser.dto';
+import { CreateUserDto } from 'src/user/dto/CreateUser.dto';
 import { ValidateObjectIdPipe } from 'src/exception/object.validation';
-import { UpdateUserDto } from 'src/dto/UpdateUser.dto';
+import { UpdateUserDto } from 'src/user/dto/UpdateUser.dto';
 
 @Controller('user')
 export class UserController {

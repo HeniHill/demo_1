@@ -1,4 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Incident } from "../../incident/schemas/incident.schema";
+import mongoose, { Mongoose } from "mongoose";
 
 export enum departments{
     IT = 'IT',
@@ -26,6 +28,9 @@ export class User{
 
     @Prop({type: Date, default: Date.now})
     createdAt: Date;
+
+    @Prop({type:[{type: mongoose.Schema.Types.ObjectId, ref: 'Incident'}]})
+    incidents: Incident[];
 
 }
 

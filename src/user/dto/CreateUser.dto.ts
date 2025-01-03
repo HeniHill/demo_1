@@ -1,5 +1,5 @@
 import { IsEmail, IsEnum, IsNotEmpty, IsNumberString } from "class-validator";
-import { departments } from "src/schemas/user.schema";
+import { departments } from "src/user/schemas/user.schema";
 
 export class CreateUserDto{
 

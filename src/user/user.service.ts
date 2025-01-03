@@ -2,9 +2,9 @@ import { ForbiddenException, HttpException, Injectable } from '@nestjs/common';
 import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateUserDto } from 'src/dto/CreateUser.dto';
-import { UpdateUserDto } from 'src/dto/UpdateUser.dto';
-import { User } from 'src/schemas/user.schema';
+import { CreateUserDto } from 'src/user/dto/CreateUser.dto';
+import { UpdateUserDto } from 'src/user/dto/UpdateUser.dto';
+import { User } from 'src/user/schemas/user.schema';
 
 @Injectable()
 export class UserService {
@@ -12,7 +12,7 @@ export class UserService {
     constructor(@InjectModel(User.name) private userModel: Model<User>){}
 
     async findAll(): Promise<User[]> {
-        return this.userModel.find().exec();
+        return await this.userModel.find().populate('incidents').exec();
     }
 
     createUser(user:CreateUserDto):Promise<User>{
@@ -27,7 +27,7 @@ export class UserService {
     }
 
     async getUserById(id:string):Promise<User>{
-        return this.userModel.findById(id).exec();
+        return await this.userModel.findById(id).populate('incidents').exec();
     }
 
     async updateUserById(id:string,user:UpdateUserDto){
