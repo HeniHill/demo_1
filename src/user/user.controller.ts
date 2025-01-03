@@ -1,15 +1,17 @@
-import { Body, Controller,Delete,Get, HttpException, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller,Delete,Get, HttpException, Param, Patch, Post, UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
 import { get } from 'http';
 import { CreateUserDto } from 'src/user/dto/CreateUser.dto';
 import { ValidateObjectIdPipe } from 'src/exception/object.validation';
 import { UpdateUserDto } from 'src/user/dto/UpdateUser.dto';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @Controller('user')
 export class UserController {
 
     constructor(private readonly userService: UserService) {}
 
+ @UseInterceptors(CacheInterceptor)
  @Get()
   getUser() {
     return this.userService.findAll();

@@ -6,6 +6,7 @@ npm i -g @nestjs/cli
 npm i @nestjs/mongoose mongoose
 npm i class-validator class-transformer
 npm i @nestjs/microservice
+npm i @nestjs/cache-manager
 
 ## Database.
 
@@ -25,7 +26,16 @@ Usually when there is constraint violation in the model, the server fires an Int
 
 ## Caching
 
-## Incident Reporting.
+To implement in-memory caching for  routes in a NestJS application, I use the @nestjs/cache-manager module. This module provides efficient way to cache responses or data in memory.
+
+
+CacheModule.register is imported in the app.module with ttl, no of items and is_global parameters.
+
+In specific route (updateUserById) **cacheManager.get()** and **cacheManager.set()** used 
+
+ 
+
+## Microservice for Incident Reporting.
 
 https://drive.google.com/file/d/1pKhnCSlOxbkYmKdoh5Qqfb11qWiGbCAF/view?usp=sharing
 

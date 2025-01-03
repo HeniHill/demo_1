@@ -1,4 +1,5 @@
-import { ForbiddenException, HttpException, Injectable } from '@nestjs/common';
+import { CACHE_MANAGER , Cache } from '@nestjs/cache-manager';
+import { ForbiddenException, HttpException, Inject, Injectable } from '@nestjs/common';
 import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -9,7 +10,11 @@ import { User } from 'src/user/schemas/user.schema';
 @Injectable()
 export class UserService {
 
-    constructor(@InjectModel(User.name) private userModel: Model<User>){}
+    constructor(
+        @InjectModel(User.name) private userModel: Model<User>,
+        @Inject(CACHE_MANAGER)private cacheManager: Cache
+
+){}
 
     async findAll(): Promise<User[]> {
         return await this.userModel.find().populate('incidents').exec();
@@ -26,8 +31,15 @@ export class UserService {
         // return the created user
     }
 
-    async getUserById(id:string):Promise<User>{
-        return await this.userModel.findById(id).populate('incidents').exec();
+    async getUserById(id:string):Promise<any>{
+    const cachedUser= await this.cacheManager.get(id);
+
+      if(cachedUser) {return cachedUser;}
+
+
+     const user= await this.userModel.findById(id).populate('incidents').exec();
+    await this.cacheManager.set(id,user,5000);
+     return user
     }
 
     async updateUserById(id:string,user:UpdateUserDto){
